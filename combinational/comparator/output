@@ -1,0 +1,70 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+S_0x5eb3a4d081d0 .scope module, "comparator_tb" "comparator_tb" 2 1;
+ .timescale 0 0;
+v0x5eb3a4d1cef0_0 .var "a", 1 0;
+v0x5eb3a4d1cfd0_0 .net "y0", 0 0, L_0x5eb3a4d1d4f0;  1 drivers
+v0x5eb3a4d1d070_0 .net "y1", 0 0, L_0x5eb3a4d1d7e0;  1 drivers
+v0x5eb3a4d1d170_0 .net "y2", 0 0, L_0x5eb3a4d1dbb0;  1 drivers
+S_0x5eb3a4d08360 .scope module, "uut" "comparator" 2 4, 3 1 0, S_0x5eb3a4d081d0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 2 "a";
+    .port_info 1 /OUTPUT 1 "y0";
+    .port_info 2 /OUTPUT 1 "y1";
+    .port_info 3 /OUTPUT 1 "y2";
+L_0x5eb3a4d1d3b0 .functor XOR 1, L_0x5eb3a4d1d240, L_0x5eb3a4d1d310, C4<0>, C4<0>;
+L_0x5eb3a4d1d4f0 .functor NOT 1, L_0x5eb3a4d1d3b0, C4<0>, C4<0>, C4<0>;
+L_0x5eb3a4d1d770 .functor NOT 1, L_0x5eb3a4d1d6a0, C4<0>, C4<0>, C4<0>;
+L_0x5eb3a4d1d7e0 .functor AND 1, L_0x5eb3a4d1d600, L_0x5eb3a4d1d770, C4<1>, C4<1>;
+L_0x5eb3a4d1da10 .functor NOT 1, L_0x5eb3a4d1d970, C4<0>, C4<0>, C4<0>;
+L_0x5eb3a4d1dbb0 .functor AND 1, L_0x5eb3a4d1da10, L_0x5eb3a4d1dad0, C4<1>, C4<1>;
+v0x5eb3a4d085b0_0 .net *"_ivl_1", 0 0, L_0x5eb3a4d1d240;  1 drivers
+v0x5eb3a4d1c420_0 .net *"_ivl_11", 0 0, L_0x5eb3a4d1d6a0;  1 drivers
+v0x5eb3a4d1c500_0 .net *"_ivl_12", 0 0, L_0x5eb3a4d1d770;  1 drivers
+v0x5eb3a4d1c5c0_0 .net *"_ivl_17", 0 0, L_0x5eb3a4d1d970;  1 drivers
+v0x5eb3a4d1c6a0_0 .net *"_ivl_18", 0 0, L_0x5eb3a4d1da10;  1 drivers
+v0x5eb3a4d1c7d0_0 .net *"_ivl_21", 0 0, L_0x5eb3a4d1dad0;  1 drivers
+v0x5eb3a4d1c8b0_0 .net *"_ivl_3", 0 0, L_0x5eb3a4d1d310;  1 drivers
+v0x5eb3a4d1c990_0 .net *"_ivl_4", 0 0, L_0x5eb3a4d1d3b0;  1 drivers
+v0x5eb3a4d1ca70_0 .net *"_ivl_9", 0 0, L_0x5eb3a4d1d600;  1 drivers
+v0x5eb3a4d1cb50_0 .net "a", 1 0, v0x5eb3a4d1cef0_0;  1 drivers
+v0x5eb3a4d1cc30_0 .net "y0", 0 0, L_0x5eb3a4d1d4f0;  alias, 1 drivers
+v0x5eb3a4d1ccf0_0 .net "y1", 0 0, L_0x5eb3a4d1d7e0;  alias, 1 drivers
+v0x5eb3a4d1cdb0_0 .net "y2", 0 0, L_0x5eb3a4d1dbb0;  alias, 1 drivers
+L_0x5eb3a4d1d240 .part v0x5eb3a4d1cef0_0, 1, 1;
+L_0x5eb3a4d1d310 .part v0x5eb3a4d1cef0_0, 0, 1;
+L_0x5eb3a4d1d600 .part v0x5eb3a4d1cef0_0, 1, 1;
+L_0x5eb3a4d1d6a0 .part v0x5eb3a4d1cef0_0, 0, 1;
+L_0x5eb3a4d1d970 .part v0x5eb3a4d1cef0_0, 1, 1;
+L_0x5eb3a4d1dad0 .part v0x5eb3a4d1cef0_0, 0, 1;
+    .scope S_0x5eb3a4d081d0;
+T_0 ;
+    %vpi_call 2 6 "$monitor", "a=%b y0=%b y1=%b y2=%b", v0x5eb3a4d1cef0_0, v0x5eb3a4d1cfd0_0, v0x5eb3a4d1d070_0, v0x5eb3a4d1d170_0 {0 0 0};
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v0x5eb3a4d1cef0_0, 0, 2;
+    %delay 10, 0;
+    %pushi/vec4 1, 0, 2;
+    %store/vec4 v0x5eb3a4d1cef0_0, 0, 2;
+    %delay 10, 0;
+    %pushi/vec4 2, 0, 2;
+    %store/vec4 v0x5eb3a4d1cef0_0, 0, 2;
+    %delay 10, 0;
+    %pushi/vec4 3, 0, 2;
+    %store/vec4 v0x5eb3a4d1cef0_0, 0, 2;
+    %delay 10, 0;
+    %vpi_call 2 11 "$finish" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "comparator_tb.v";
+    "comparator.v";
