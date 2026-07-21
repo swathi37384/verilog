@@ -1,1 +1,88 @@
+Question 1 
+Write the keystrokes needed for the commands in vi if the editor is currently in "Command" mode.
+a. Delete 4 lines, starting from the current line.
+      ans: 4dd
+b. Search "cat" or "Cat" in the entire document
+      ans: /\ccat ---\c case insensitive
+c. Delete 6 characters, starting from the current position
+      ans:6x
+d. Switch to "Insert" mode.
+      ans:i
+e. Undo the most recent command.
+      ans:u
 
+Question 2
+Briefly explain what the given command would do in vi if the editor is currently in command mode. (Hint:
+Go try these commands and verify what they do).
+a. :wq!
+      ans:Forces the write and quits in read only file
+      : -->enter in command line mode
+      w -->save(write) the file
+      q -->quit
+      ! -->force the editor if the file is read only
+b. :%s/cat/Cat/g
+      ans:substitute the value
+      : -->enter in command line mode
+      % -->apply command for entire file
+      s -->substitute
+      g -->replace all occurance
+c. 2fa
+      ans: Moves the cursor to the second occurrence of the character a on the current line
+d. yy (Hint: after doing this, go elsewhere in the file and do the command p)
+      ans:copy the current line and paste
+e. gg
+      ans:moves the cursor to the first line
+ 
+Question 3 
+Write the keystrokes needed for these commands in editor VI. Assume that you want to accomplish
+each task with as few keystrokes as possible.
+a. Search backward
+      ans:?pattern +enter
+b. Cut text from the "mark" to the current position
+      ans:d'`a
+c. Move to the end of the line
+      ans:$
+d. Move forward one page
+      ans:ctrl+F
+e. Save buffered text to currently specified file
+      ans:w
+
+Question 4 
+Briefly explain what each of the given commands would do in editor emacs. Note that the ^ symbol in
+these commands represents the Control key.
+a. :11,15s/Bangalore/Trivandrum/
+      ans:Replaces the first occurrence of "Bangalore" with "Trivandrum" on lines 11 to 15 only.
+b. :11,15s/Bangalore/Trivandrum/gc
+      ans:Replaces all occurrences of "Bangalore" with "Trivandrum" on lines 11 to 15, asking for confirmation (c) before each replacement. (g = global, c = confirm)
+c. :set nu
+      ans:Displays line numbers for all lines in the file.
+d. :q
+      ans:Quits the editor. If there are unsaved changes, Vim will not quit and will display a warning.
+e. :q!
+      ans:Force quits the editor without saving any changes.
+
+Question 5 (
+Give brief answers for each of the following questions. For questions a and b below, write out two
+different ways (using numerical and letter methods) to change permissions of a file "thing.txt" to the
+permissions specified.
+a. User has read, execute permissions, group has read permissions, other has write and
+execute permissions
+      ans:User = r-x = 5
+      Group = r-- = 4
+      Others = -wx = 3
+      chmod 543 thing.txtv
+      chmod u=rx,g=r,o=wx thing.txt
+b. User has no permissions, group has read write execute permissions, other has write
+permissions
+      ans:User = --- = 0
+      Group = rwx = 7
+      Others = -w- = 2
+      chmod 072 thing.txt
+      chmod u=,g=rwx,o=w thing.txt
+c. What are the default permissions of a newly created text file?
+      ans:rw-r--r--  (666 modified by the user's umask)
+      -rw-r--r--   (644)
+d. What are the default permissions of a newly created directory? WHY does it differ from the
+permissions of a new text file? Name one command that would not produce the desired result
+when a directory that is not executable is used as a parameter to the command.
+      ans:rwxr-xr-x   (755)
