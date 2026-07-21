@@ -16,4 +16,5 @@ Go try these commands and verify what they do).
 a. :wq!
 b. :%s/cat/Cat/g
 c. 2fa
-d. yy (Hint: after
+d. yy (Hint: after doing this, go elsewhere in the file and do the command p)
+e. gg
