@@ -14,7 +14,13 @@ e. Undo the most recent command.
 Briefly explain what the given command would do in vi if the editor is currently in command mode. (Hint:
 Go try these commands and verify what they do).
 a. :wq!
+      ans:Forces the write and quits in read only file
+      : -->enter in command line mode
+      w -->save(write) the file
+      q -->quit
+      ! -->force the editor if the file is read only
 b. :%s/cat/Cat/g
+      ans:substitute the value
 c. 2fa
 d. yy (Hint: after doing this, go elsewhere in the file and do the command p)
 e. gg
