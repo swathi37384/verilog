@@ -60,3 +60,29 @@ d. :q
       ans:Quits the editor. If there are unsaved changes, Vim will not quit and will display a warning.
 e. :q!
       ans:Force quits the editor without saving any changes.
+
+Question 5 (
+Give brief answers for each of the following questions. For questions a and b below, write out two
+different ways (using numerical and letter methods) to change permissions of a file "thing.txt" to the
+permissions specified.
+a. User has read, execute permissions, group has read permissions, other has write and
+execute permissions
+      ans:User = r-x = 5
+      Group = r-- = 4
+      Others = -wx = 3
+      chmod 543 thing.txtv
+      chmod u=rx,g=r,o=wx thing.txt
+b. User has no permissions, group has read write execute permissions, other has write
+permissions
+      ans:User = --- = 0
+      Group = rwx = 7
+      Others = -w- = 2
+      chmod 072 thing.txt
+      chmod u=,g=rwx,o=w thing.txt
+c. What are the default permissions of a newly created text file?
+      ans:rw-r--r--  (666 modified by the user's umask)
+      -rw-r--r--   (644)
+d. What are the default permissions of a newly created directory? WHY does it differ from the
+permissions of a new text file? Name one command that would not produce the desired result
+when a directory that is not executable is used as a parameter to the command.
+      ans:rwxr-xr-x   (755)
