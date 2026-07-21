@@ -1,0 +1,14 @@
+Orange is rich in Vitamin C.
+CAT is written in uppercase.
+Lion is the king of the jungle.
+Tiger is a wild animal.
+Elephant is the largest land animal.
+Linux is widely used in VLSI.
+Verilog is a hardware description language.
+The Cat is sitting on the wall.
+Rabbit runs very fast.
+Birds can fly.
+Fish live in water.
+A cat chased a mouse.
+Python is easy to learn.
+C programming is important for embedded system.
