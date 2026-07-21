@@ -11,6 +11,7 @@ d. Switch to "Insert" mode.
 e. Undo the most recent command.
       ans:u
 
+Question 2
 Briefly explain what the given command would do in vi if the editor is currently in command mode. (Hint:
 Go try these commands and verify what they do).
 a. :wq!
@@ -21,6 +22,41 @@ a. :wq!
       ! -->force the editor if the file is read only
 b. :%s/cat/Cat/g
       ans:substitute the value
+      : -->enter in command line mode
+      % -->apply command for entire file
+      s -->substitute
+      g -->replace all occurance
 c. 2fa
+      ans: Moves the cursor to the second occurrence of the character a on the current line
 d. yy (Hint: after doing this, go elsewhere in the file and do the command p)
+      ans:copy the current line and paste
 e. gg
+      ans:moves the cursor to the first line
+ 
+Question 3 
+Write the keystrokes needed for these commands in editor VI. Assume that you want to accomplish
+each task with as few keystrokes as possible.
+a. Search backward
+      ans:?pattern +enter
+b. Cut text from the "mark" to the current position
+      ans:d'`a
+c. Move to the end of the line
+      ans:$
+d. Move forward one page
+      ans:ctrl+F
+e. Save buffered text to currently specified file
+      ans:w
+
+Question 4 
+Briefly explain what each of the given commands would do in editor emacs. Note that the ^ symbol in
+these commands represents the Control key.
+a. :11,15s/Bangalore/Trivandrum/
+      ans:Replaces the first occurrence of "Bangalore" with "Trivandrum" on lines 11 to 15 only.
+b. :11,15s/Bangalore/Trivandrum/gc
+      ans:Replaces all occurrences of "Bangalore" with "Trivandrum" on lines 11 to 15, asking for confirmation (c) before each replacement. (g = global, c = confirm)
+c. :set nu
+      ans:Displays line numbers for all lines in the file.
+d. :q
+      ans:Quits the editor. If there are unsaved changes, Vim will not quit and will display a warning.
+e. :q!
+      ans:Force quits the editor without saving any changes.
