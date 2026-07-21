@@ -1,1 +1,19 @@
+Question 1 
+Write the keystrokes needed for the commands in vi if the editor is currently in "Command" mode.
+a. Delete 4 lines, starting from the current line.
+      ans: 4dd
+b. Search "cat" or "Cat" in the entire document
+      ans: /\ccat ---\c case insensitive
+c. Delete 6 characters, starting from the current position
+      ans:6x
+d. Switch to "Insert" mode.
+      ans:i
+e. Undo the most recent command.
+      ans:u
 
+Briefly explain what the given command would do in vi if the editor is currently in command mode. (Hint:
+Go try these commands and verify what they do).
+a. :wq!
+b. :%s/cat/Cat/g
+c. 2fa
+d. yy (Hint: after
