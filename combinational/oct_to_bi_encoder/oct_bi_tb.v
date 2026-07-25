@@ -1,15 +1,14 @@
 module oct_bi_tb;
-reg [2:0]oct;
+reg [7:0]oct;
 wire [2:0]out;
-integer i;
 oct_bi uut(.oct(oct),.out(out));
 initial begin
-$monitor("oct=%0d bcd=%b",oct,out);
-for(i=0;i<9;i=i+1)
-begin
-oct=i;
-#10;
-end
+$monitor("oct=%b bcd=%b",oct,out);
+oct=8'b00000001;#10;
+oct=8'b00001000;#10;
+oct=8'b01000000;#10;
+oct=8'b00010001;#10;
+oct=8'b10000000;#10;
 #10;$finish;
 end
 endmodule
