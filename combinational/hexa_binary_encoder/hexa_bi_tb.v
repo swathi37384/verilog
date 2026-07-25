@@ -1,15 +1,15 @@
 module hexa_bi_tb;
-reg [3:0]h;
+reg [15:0]h;
 wire [3:0]out;
 integer i;
 hexa_bi uut(.h(h),.out(out));
 initial begin
-$monitor("h=%0d bcd=%b",h,out);
-for(i=0;i<16;i=i+1)
-begin
-h=i;
-#10;
-end
+$monitor("h=%b bcd=%b",h,out);
+h=16'b0000000000000001;#10;
+h=16'b0000000100000000;#10;
+h=16'b0000010000000000;#10;
+h=16'b0010000000000000;#10;
+h=16'b1000000000000001;#10;
 #10;$finish;
 end
 endmodule
