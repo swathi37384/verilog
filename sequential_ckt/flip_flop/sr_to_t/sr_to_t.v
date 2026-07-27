@@ -3,6 +3,7 @@ output reg q);
 wire s,r;
 assign s=~q&t;
 assign r=q&t;
+
 always@(posedge clk or negedge rst)begin
 if(!rst)
 	q<=1'b0;

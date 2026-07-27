@@ -12,6 +12,6 @@ t=0;#10;
 t=0;#10;
 t=1;#10;
 t=1;#10;
-$finish;
+#10 $finish;
 end
 endmodule
