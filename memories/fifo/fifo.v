@@ -17,12 +17,12 @@ else begin
 	if(w_en&&!rd_en && !full)begin
 		mem[w_ptr]<=d_in;
 		w_ptr<=w_ptr+1;
-		count=count+1;
+		count<=count+1;
 	end
 	if(rd_en && !w_en &&!empty)begin
 		d_out<=mem[rd_ptr];
 		rd_ptr<=rd_ptr+1;
-		count=count-1;
+		count<=count-1;
 	end
 end
 end
