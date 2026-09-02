@@ -21,7 +21,7 @@ async_fifo uut(.wclk(wclk),
 	.rempty(rempty));
 
 always #5 wclk=~wclk;
-always #10 rck=~rclk;
+always #10 rclk=~rclk;
 
 initial begin
 	wclk=0;

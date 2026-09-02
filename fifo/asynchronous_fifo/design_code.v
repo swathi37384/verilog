@@ -30,13 +30,14 @@ module write_handler(input wclk,w_rst,
 	output reg wfull);
 
 reg [3:0]r_bi_sync;
-
+wire [3:0]w_bi_ptr_temp;
 always@(*)begin
 r_bi_sync[3]=r_gray_sync[3];
 r_bi_sync[2]=r_bi_sync[3]^r_gray_sync[2];
 r_bi_sync[1]=r_bi_sync[2]^r_gray_sync[1];
 r_bi_sync[2]=r_bi_sync[1]^r_gray_sync[0];
 end
+assign w_bi_ptr_temp=w_bi_ptr+1;
 
 always@(posedge wclk or negedge w_rst)begin
 	if(!w_rst)begin
@@ -46,10 +47,10 @@ always@(posedge wclk or negedge w_rst)begin
 	end
 	else begin
 		if(w_en && !wfull) begin
-			w_bi_ptr<=w_bi_ptr+1;
-			w_gray_ptr<=((w_bi_ptr+1)>>1)^(w_bi_ptr+1);
+			w_bi_ptr<=w_bi_ptr_temp;
+			w_gray_ptr<=((w_bi_ptr_temp)>>1)^(w_bi_ptr_temp);
 		end
-		if((w_bi_ptr[2:0]==r_bi_sync[2:0])&&(w_bi_ptr[3]!=r_bi_sync[3])) begin
+		if((w_bi_ptr_temp[2:0]==r_bi_sync[2:0])&&(w_bi_ptr_temp[3]!=r_bi_sync[3])) begin
 			wfull<=1'b1;
 		end
 		else begin
@@ -73,7 +74,7 @@ reg [3:0]w_bi_sync;
 always@(*)begin
 	w_bi_sync[3]=w_gray_sync[3];
 	w_bi_sync[2]=w_bi_sync[3]^w_gray_sync[2];
-	w_bi-sync[1]=w_bi_sync[2]^w_gray_sync[1];
+	w_bi_sync[1]=w_bi_sync[2]^w_gray_sync[1];
 	w_bi_sync[0]=w_bi_sync[1]^w_gray_sync[0];
 end
 
@@ -125,9 +126,9 @@ module async_fifo(input wclk,rclk,
 	input w_en,r_en,
 	input w_rst,r_rst,
 	input [7:0]wdata,
-	output reg [7:0]rdata,
-	output reg wfull,
-	output reg rempty);
+	output  [7:0]rdata,
+	output  wfull,
+	output  rempty);
 
 wire [3:0]w_bi_ptr;
 wire [3:0]w_gray_ptr;
@@ -170,10 +171,10 @@ assign r_ena=r_en && !rempty;
 memory mem(.wclk(wclk),
 	.rclk(rclk),
 	.w_en(w_ena),
-	.w_addr(w_bi_ptr[2:0]),
+	.w_add(w_bi_ptr[2:0]),
 	.wdata(wdata),
 	.r_en(r_ena),
-	.r_addr(r_bi_ptr[2:0]),
+	.r_add(r_bi_ptr[2:0]),
 	.rdata(rdata));
 
 endmodule
