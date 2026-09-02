@@ -35,7 +35,7 @@ always@(*)begin
 r_bi_sync[3]=r_gray_sync[3];
 r_bi_sync[2]=r_bi_sync[3]^r_gray_sync[2];
 r_bi_sync[1]=r_bi_sync[2]^r_gray_sync[1];
-r_bi_sync[2]=r_bi_sync[1]^r_gray_sync[0];
+r_bi_sync[0]=r_bi_sync[1]^r_gray_sync[0];
 end
 assign w_bi_ptr_temp=w_bi_ptr+1;
 
@@ -49,11 +49,12 @@ always@(posedge wclk or negedge w_rst)begin
 		if(w_en && !wfull) begin
 			w_bi_ptr<=w_bi_ptr_temp;
 			w_gray_ptr<=((w_bi_ptr_temp)>>1)^(w_bi_ptr_temp);
-		end
+		
 		if((w_bi_ptr_temp[2:0]==r_bi_sync[2:0])&&(w_bi_ptr_temp[3]!=r_bi_sync[3])) begin
 			wfull<=1'b1;
 		end
-		else begin
+	end
+		if(wfull && (w_bi_ptr==r_bi_sync))begin
 		       wfull<=1'b0;
 	       end
        end

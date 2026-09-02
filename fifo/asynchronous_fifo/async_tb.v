@@ -24,6 +24,8 @@ always #5 wclk=~wclk;
 always #10 rclk=~rclk;
 
 initial begin
+	
+        $monitor("time=%0t w_rst=%b w_e=%b wdata=%h full=%b r_rst=%b r_e=%b rdata=%h empty=%b",$time,w_rst,w_en,wdata,wfull,r_rst,r_en,rdata,rempty);
 	wclk=0;
 	rclk=0;
 	w_rst=0;
@@ -61,15 +63,6 @@ initial begin
 	#50;
 	$finish;
 end
-
-always@(posedge wclk) begin
-	$display("time=%0t w_e=%b wdata=%h full=%b",$time,w_en,wdata,wfull);
-end
-
-always@(posedge rclk) begin
-        $display("time=%0t r_e=%b rdata=%h empty=%b",$time,r_en,rdata,rempty);
-end
-
 initial begin 
 	$dumpfile("async_fifo.vcd");
 	$dumpvars;
