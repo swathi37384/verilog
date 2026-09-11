@@ -11,6 +11,8 @@ forever #5 clk=~clk;
 end
 initial begin
 	$monitor("clk=%b rst=%b w_en=%b d_in=%d rd_en=%b d_out=%d full=%b empty=%b",clk,rst,w_en,d_in,rd_en,d_out,full,empty);	
+	$dumpfile("fifo.vcd");
+	$dumpvars;
 rst=1;
 #10 rst=0;
 w_en=1;
