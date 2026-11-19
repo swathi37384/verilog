@@ -22,82 +22,82 @@ endmodule
 
 //write pointer handler
 
-module write_handler(input wclk,w_rst,
-	input w_en,
-	input [3:0]r_gray_sync,
-	output reg [3:0]w_bi_ptr,
-	output reg [3:0]w_gray_ptr,
-	output reg wfull);
+module write_handler(
+    input wclk, w_rst,
+    input w_en,
+    input [3:0] r_gray_sync,
+    output reg [3:0] w_bi_ptr,
+    output reg [3:0] w_gray_ptr,
+    output reg wfull
+);
 
-reg [3:0]r_bi_sync;
-wire [3:0]w_bi_ptr_temp;
-always@(*)begin
-r_bi_sync[3]=r_gray_sync[3];
-r_bi_sync[2]=r_bi_sync[3]^r_gray_sync[2];
-r_bi_sync[1]=r_bi_sync[2]^r_gray_sync[1];
-r_bi_sync[0]=r_bi_sync[1]^r_gray_sync[0];
-end
-assign w_bi_ptr_temp=w_bi_ptr+1;
+reg [3:0] r_bi_sync;
+wire [3:0] w_bi_ptr_temp;
 
-always@(posedge wclk or negedge w_rst)begin
-	if(!w_rst)begin
-		w_bi_ptr<=4'd0;
-		w_gray_ptr<=4'd0;
-		wfull<=1'b0;
-	end
-	else begin
-		if(w_en && !wfull) begin
-			w_bi_ptr<=w_bi_ptr_temp;
-			w_gray_ptr<=((w_bi_ptr_temp)>>1)^(w_bi_ptr_temp);
-		
-		if((w_bi_ptr_temp[2:0]==r_bi_sync[2:0])&&(w_bi_ptr_temp[3]!=r_bi_sync[3])) begin
-			wfull<=1'b1;
-		end
-	end
-		if(wfull && (w_bi_ptr==r_bi_sync))begin
-		       wfull<=1'b0;
-	       end
-       end
+always @(*) begin
+    r_bi_sync[3] = r_gray_sync[3];
+    r_bi_sync[2] = r_bi_sync[3] ^ r_gray_sync[2];
+    r_bi_sync[1] = r_bi_sync[2] ^ r_gray_sync[1];
+    r_bi_sync[0] = r_bi_sync[1] ^ r_gray_sync[0];
 end
+
+assign w_bi_ptr_temp = w_bi_ptr + (w_en && !wfull);
+
+always @(posedge wclk or negedge w_rst) begin
+    if(!w_rst) begin
+        w_bi_ptr <= 0;
+        w_gray_ptr <= 0;
+        wfull <= 0;
+    end
+    else begin
+        w_bi_ptr <= w_bi_ptr_temp;
+        w_gray_ptr <= (w_bi_ptr_temp >> 1) ^ w_bi_ptr_temp;
+
+        wfull <= (w_bi_ptr_temp[2:0] == r_bi_sync[2:0]) &&
+                 (w_bi_ptr_temp[3] != r_bi_sync[3]);
+    end
+end
+
 endmodule
 
 // read pointer handler
 
-module read_handler(input rclk,
-	input r_en,
-	input r_rst,
-	input [3:0]w_gray_sync,
-	output reg [3:0]r_bi_ptr,
-	output reg [3:0]r_gray_ptr,
-	output reg rempty);
+module read_handler(
+    input rclk,
+    input r_en,
+    input r_rst,
+    input [3:0] w_gray_sync,
+    output reg [3:0] r_bi_ptr,
+    output reg [3:0] r_gray_ptr,
+    output reg rempty
+);
 
-reg [3:0]w_bi_sync;
-always@(*)begin
-	w_bi_sync[3]=w_gray_sync[3];
-	w_bi_sync[2]=w_bi_sync[3]^w_gray_sync[2];
-	w_bi_sync[1]=w_bi_sync[2]^w_gray_sync[1];
-	w_bi_sync[0]=w_bi_sync[1]^w_gray_sync[0];
+reg [3:0] w_bi_sync;
+wire [3:0] r_bi_ptr_temp;
+
+always @(*) begin
+    w_bi_sync[3] = w_gray_sync[3];
+    w_bi_sync[2] = w_bi_sync[3] ^ w_gray_sync[2];
+    w_bi_sync[1] = w_bi_sync[2] ^ w_gray_sync[1];
+    w_bi_sync[0] = w_bi_sync[1] ^ w_gray_sync[0];
 end
 
-always@(posedge rclk or negedge r_rst)begin
-	if(!r_rst)begin
-		r_bi_ptr<=4'd0;
-		r_gray_ptr<= 4'd0;
-		rempty<=1'b0;
-	end
-	else begin
-		if(r_en && !rempty)begin
-			r_bi_ptr<=r_bi_ptr+1;
-			r_gray_ptr<=((r_bi_ptr+1)>>1)^(r_bi_ptr+1);
-		end
-		if(r_bi_ptr==w_bi_sync)begin
-			rempty<=1'b1;
-		end
-		else begin
-			rempty<=1'b0;
-		end
-	end
+assign r_bi_ptr_temp = r_bi_ptr + (r_en && !rempty);
+
+always @(posedge rclk or negedge r_rst) begin
+    if(!r_rst) begin
+        r_bi_ptr <= 0;
+        r_gray_ptr <= 0;
+        rempty <= 1;
+    end
+    else begin
+        r_bi_ptr <= r_bi_ptr_temp;
+        r_gray_ptr <= (r_bi_ptr_temp >> 1) ^ r_bi_ptr_temp;
+
+        rempty <= (r_bi_ptr_temp == w_bi_sync);
+    end
 end
+
 endmodule
 
 //synchronizer
@@ -179,9 +179,3 @@ memory mem(.wclk(wclk),
 	.rdata(rdata));
 
 endmodule
-
-
-
-
-
-
